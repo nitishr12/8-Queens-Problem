@@ -140,11 +140,7 @@ public class HillClimbing {
         System.out.print("\n");
         //Print the latest state
         new HillClimbing().printChessBoard(chessBoard, n, currentHeuristic);
-<<<<<<< HEAD
         System.out.println("Global Maxima reached after "+(states-1)+" changes with "+resetTime+" random restarts");
-=======
-        System.out.println("Global Maxima reached with "+(states-1)+" changes after "+resetTime+" random restarts");
->>>>>>> Third commit
 
     }
     
