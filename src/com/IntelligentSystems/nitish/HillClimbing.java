@@ -57,7 +57,6 @@ public class HillClimbing {
         }
 
         System.out.println("The heuristic value for this state is " + heuristic);
-        System.out.println("The current state");
         for (int i=0; i<n; i++) {
             for (int j = 0; j < n; j++) {
                 System.out.print(newBoard[i][j] + " ");
