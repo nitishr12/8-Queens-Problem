@@ -125,6 +125,8 @@ public class HillClimbing {
                 heuristic = new HillClimbing().checkHeuristics(bestOfAllBoards);
                 //Increase the reset counter
                 resetTime++;
+                //Reset the states counter
+                states=0;
             } 
             //We have a better state
             else{
@@ -138,7 +140,11 @@ public class HillClimbing {
         System.out.print("\n");
         //Print the latest state
         new HillClimbing().printChessBoard(chessBoard, n, currentHeuristic);
+<<<<<<< HEAD
         System.out.println("Global Maxima reached after "+(states-1)+" changes with "+resetTime+" random restarts");
+=======
+        System.out.println("Global Maxima reached with "+(states-1)+" changes after "+resetTime+" random restarts");
+>>>>>>> Third commit
 
     }
     
