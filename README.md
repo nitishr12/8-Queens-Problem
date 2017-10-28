@@ -36,7 +36,7 @@ _ _ _ _ _ Q _ _ _ _
 Q _ _ _ _ _ _ _ _ _ 
 _ _ _ _ _ _ _ _ _ _ 
 There is a better state since 2 < 5
-
+ 
 The heuristic value for this state is 2
 _ _ _ Q _ _ _ _ _ _ 
 _ _ _ _ _ _ _ _ _ Q 
