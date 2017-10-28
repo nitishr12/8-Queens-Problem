@@ -10,7 +10,7 @@ java HillClimbing
 
 Enter the size of the Chess Board
 >>10
-
+ 
 The heuristic value for this state is 7
 _ _ _ _ _ _ _ _ _ _ 
 _ _ _ _ _ _ _ _ _ Q 
