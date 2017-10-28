@@ -6,14 +6,14 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class HillClimbing {
-	static int heuristic = 0;
+	static int heuristic = Integer.MAX_VALUE;
     static int neighbours = 0;
     static int resetTime = 0;
     static int states = 0;
     static int n=0;
     
   //The function to create a new Chess board with queens. Queens are denoted as 1
-    public static QueenObject[] createChessBoard(int n) {
+    QueenObject[] createChessBoard(int n) {
     	//Make one's on each random rows denoting the Queen and this is the start state
     	Random random = new Random();
         QueenObject[] start = new QueenObject[n];
@@ -24,7 +24,7 @@ public class HillClimbing {
     }
     
     //The function to check heuristics for each of the state
-    public static int checkHeuristics (QueenObject[] chessBoard) {
+    int checkHeuristics (QueenObject[] chessBoard) {
     	//The heuristic here is to calculate the number of conflicts between the queens.
         int heuristic = 0;
 
@@ -39,31 +39,31 @@ public class HillClimbing {
     }
 
     //The function to print the chess board 
-    private static void printChessBoard (QueenObject[] actualState, int n, int heuristic, int neighbours) {
+    void printChessBoard (QueenObject[] actualState, int n, int heuristic) {
     	//We only store the places where there are queens and not the empty slots for efficiency. 
-    	//Hence we create a 2D array with zeros and add 1's in the places where a queen exists
-        int[][] newBoard = new int[n][n];
+    	//Hence we create a 2D array with blanks and add Q's in the places where a queen exists
+        String[][] newBoard = new String[n][n];
 
         //An array with 0's
         for (int i=0; i<n; i++) {
             for (int j=0; j<n; j++) {
-                newBoard[i][j]=0;
+                newBoard[i][j]="_";
             }
         }
         
         //Set the index with queens as 1
         for (int i=0; i<n; i++) {
-            newBoard[actualState[i].getRow()][actualState[i].getColumn()]=1;
+            newBoard[actualState[i].getRow()][actualState[i].getColumn()]="Q";
         }
 
         System.out.println("The heuristic value for this state is " + heuristic);
+        
         for (int i=0; i<n; i++) {
             for (int j = 0; j < n; j++) {
                 System.out.print(newBoard[i][j] + " ");
             }
             System.out.print("\n");
         }
-        System.out.println("Neighbour that had the lowest heuristic value " + neighbours);
     }
     
     public static void main(String[]args) throws NumberFormatException, IOException{
@@ -76,10 +76,10 @@ public class HillClimbing {
         QueenObject[] bestOfAllBoards = new QueenObject[n];
         QueenObject[] temporaryBoards = new QueenObject[n];
         
-        QueenObject[] initialBoard = createChessBoard(n);
+        QueenObject[] initialBoard = new HillClimbing().createChessBoard(n);
         chessBoard = Arrays.copyOf(initialBoard,n);
          
-        currentHeuristic = checkHeuristics(initialBoard);
+        currentHeuristic = new HillClimbing().checkHeuristics(initialBoard);
 
         //Test other generated new states and pick the one with the least heuristic.
         //If the least heuristic generated is same as the previous least heuristic state, then are stuck in a local maxima
@@ -100,7 +100,7 @@ public class HillClimbing {
                 temporaryBoards[i] = new QueenObject (0, temporaryBoards[i].getColumn());
                 for (int j=0; j<n; j++) {
                 	//Store a temporary heuristic
-                    temporaryHeuristic = checkHeuristics(temporaryBoards);  
+                    temporaryHeuristic = new HillClimbing().checkHeuristics(temporaryBoards);  
                     //Trying to find a lower heuristic on iterating over all the boards
                     if (temporaryHeuristic < bestHeuristic) {    
                         bestHeuristic = temporaryHeuristic;
@@ -117,18 +117,18 @@ public class HillClimbing {
             }
             System.out.print("\n");
             //Print the least heuristic state
-            printChessBoard(chessBoard, n, currentHeuristic, numberOfNeighbors);   
-            System.out.println("Go to a new next state");
-
+            new HillClimbing().printChessBoard(chessBoard, n, currentHeuristic);   
+            
             if (bestHeuristic == currentHeuristic) {
                 System.out.println("There are no better states. We are stuck in a local maxima. Hence its time to do a random restart");
-                bestOfAllBoards = createChessBoard(n);
-                heuristic = checkHeuristics(bestOfAllBoards);
+                bestOfAllBoards = new HillClimbing().createChessBoard(n);
+                heuristic = new HillClimbing().checkHeuristics(bestOfAllBoards);
                 //Increase the reset counter
                 resetTime++;
             } 
             //We have a better state
             else{
+            	System.out.println("There is a better state since "+bestHeuristic+" < "+heuristic);
                 heuristic = bestHeuristic;
             }
             states++;
@@ -137,8 +137,8 @@ public class HillClimbing {
         }
         System.out.print("\n");
         //Print the latest state
-        printChessBoard(chessBoard, n, currentHeuristic, neighbours);
-        System.out.println("Global Maxima reached after "+states+" changes and "+resetTime+" random restarts");
+        new HillClimbing().printChessBoard(chessBoard, n, currentHeuristic);
+        System.out.println("Global Maxima reached after "+(states-1)+" changes with "+resetTime+" random restarts");
 
     }
     
